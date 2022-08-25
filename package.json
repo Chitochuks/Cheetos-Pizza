@@ -1,0 +1,17 @@
+{
+  "name": "cheetos-pizza",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "author": "chito",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2",
+    "redux-devtools-extension": "^2.13.9",
+    "router": "^1.3.7"
+  }
+}
