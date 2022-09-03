@@ -1,5 +1,3 @@
-import { type } from "express/lib/response"
-
 export const addToCart = (pizza , quantity , variant) => (dispatch , getState) => {
 
     var cartItem = {
@@ -7,22 +5,36 @@ export const addToCart = (pizza , quantity , variant) => (dispatch , getState) =
         _id : pizza._id,
         image : pizza.image,
         variant : variant,
-        quantity : quantity,
+        quantity : Number(quantity),
         prices : pizza.prices ,
         price: pizza.prices[0][variant] * quantity
 
     }
 
-
-    dispatch({type:'ADD_TO_CART' , payload : cartItem})
-
+    if(cartItem.quantity>10)
+    {
+        alert('You cannot add more than 10 quantities')
+    }
+    else {
+        if(cartItem.quantity<1)
+        {
+            dispatch({type: 'DELETE_FROM_CART' , payload: pizza})
+        }
+        else{
+            dispatch({type:'ADD_TO_CART' , payload : cartItem})
+        }
+        
+    }
+    
     const cartItems = getState().cartReducer.cartItems
     window.localStorage.setItem('cartItems' , JSON.stringify(cartItems))
 
 }
 
-// export const deleteFromCart=(pizza)=>dispatch=>{
+export const deleteFromCart=(pizza)=>(dispatch, getState)=>{
 
-//     dispatch({type: 'DELETE_FROM_CART' , payload: pizza})
+
+    const cartItems = getState().cartReducer.cartItems
+    window.localStorage.setItem('cartItems' , JSON.stringify(cartItems))
     
-// }
+}
